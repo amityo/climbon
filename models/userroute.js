@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
   UserRoute.associate = (models) => {
     UserRoute.belongsTo(models.Route)
+    UserRoute.belongsTo(models.User)
   };
 
   return UserRoute;

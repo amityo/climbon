@@ -1,28 +1,24 @@
 module.exports = {
     up: (queryInterface, Sequelize) =>
-        queryInterface.createTable('user_routes', {
+        queryInterface.createTable('users', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            finish_type: {
-                type: Sequelize.STRING
+            username: {
+                type: Sequelize.STRING,
+                unique: true,
+                allowNull: false
             },
-            route_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'routes'
-                }
+            password: {
+                type: Sequelize.STRING,
+                allowNull: false
             },
-            user_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'users'
-                }
+            admin: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
             },
             created_at: {
                 allowNull: false,
@@ -35,5 +31,5 @@ module.exports = {
                 defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
             }
         }),
-    down: (queryInterface) => queryInterface.dropTable('user_routes')
+    down: (queryInterface) => queryInterface.dropTable('users')
 };

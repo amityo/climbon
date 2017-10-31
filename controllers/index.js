@@ -1,5 +1,7 @@
-route = require('./route');
+routes = require('./routes');
+users = require('./users');
 
 module.exports = {
-    route,
+    routes,
+    users
 };

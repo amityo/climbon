@@ -9,5 +9,5 @@ module.exports = {
         })
         .then(route => res.status(201).send(route))
         .catch(err => res.status(400).send(err))
-    }
-}
+    },
+};

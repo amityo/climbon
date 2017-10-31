@@ -1,17 +1,32 @@
-const express = require('express');
-const router = express.Router();
+const users = require('./users');
+const auth = require('./auth');
+const routes = require('./routes');
 
-routeController = require('../controllers').route
+const mid = require('../auth/middlewares');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const API_PREFIX = '/api/v1'
 
-router.get('/api', (req, res) => res.status(200).send({
-  message: 'Welcome to the api',
-}));
+module.exports = (app) => {
+	app.use(`${API_PREFIX}/users`, users);
+	app.use(`${API_PREFIX}/routes`, mid.loginRequired, routes);
+	app.use('/auth', auth);
 
-router.post('/api/route', route.create)
+	// catch 404 and forward to error handler
+	app.use((req, res, next) => {
+		const err = new Error('Not Found');
+		err.status = 404;
+		next(err);
+	});
 
-module.exports = router;
+	// error handler
+	app.use((err, req, res, next) => {
+		// set locals, only providing error in development
+		res.locals.message = err.message;
+		res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+		// render the error page
+		res.status(err.status || 500);
+		res.render('error');
+	});
+
+};

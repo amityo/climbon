@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const authHelpers = require('../auth/_helpers');
+const mid = require('../auth/middlewares');
 
 /* GET users listing. */
-router.get('/', authHelpers.loginRequired, function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', mid.loginRequired, function (req, res, next) {
+	res.send('respond with a resource');
 });
 
-router.get('/admin', authHelpers.adminRequired, function(req, res, next) {
-  res.send('admin');
+router.get('/admin', mid.adminRequired, function (req, res, next) {
+	res.send('admin');
 });
 
 module.exports = router;

@@ -1,5 +1,3 @@
-// todo: change everything to const?
-
 require('dotenv').config();
 
 const express = require('express');

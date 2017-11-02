@@ -1,3 +1,5 @@
+const dbHelpers = require('../_helpers');
+
 const gradeEnum = "enum_routes_grade";
 const typeEnum = "enum_routes_type";
 
@@ -27,7 +29,7 @@ module.exports = {
                 allowNull: false
             },
             setup_date: {
-                type: Sequelize.DATE,
+                type: Sequelize.DATEONLY,
                 allowNull: false,
             },
             is_available: {
@@ -35,7 +37,7 @@ module.exports = {
                 defaultValue: true
             },
             end_date: {
-                type: Sequelize.DATE,
+                type: Sequelize.DATEONLY,
                 allowNull: true
             },
             image: {
@@ -55,12 +57,12 @@ module.exports = {
             created_at: {
                 type: Sequelize.DATE,
                 allowNull: false,
-                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+                defaultValue: dbHelpers.currentTimestamp()
             },
             updated_at: {
                 type: Sequelize.DATE,
                 allowNull: false,
-                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+                defaultValue: dbHelpers.currentTimestamp()
             }
         })
     },

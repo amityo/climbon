@@ -60,3 +60,4 @@ typings/
 
 db/seeders/
 .vscode/
+.todos

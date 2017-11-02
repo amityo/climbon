@@ -1,3 +1,5 @@
+const dbHelpers = require('../_helpers');
+
 module.exports = {
     up: (queryInterface, Sequelize) =>
         queryInterface.createTable('user_routes', {
@@ -27,12 +29,12 @@ module.exports = {
             created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
-                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+                defaultValue: dbHelpers.currentTimestamp()
             },
             updated_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
-                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+                defaultValue: dbHelpers.currentTimestamp()
             }
         }),
     down: (queryInterface) => queryInterface.dropTable('user_routes')

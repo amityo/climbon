@@ -41,11 +41,12 @@ module.exports = (sequelize, DataTypes) => {
 		setters: {
 			type: DataTypes.ARRAY(DataTypes.STRING)
 		}
-	}, {	
-		underscored: true,
-		tableName: 'routes',
-		freezeTableName: true,
-		underscoredAll: true });
+	}, {
+			underscored: true,
+			tableName: 'routes',
+			freezeTableName: true,
+			underscoredAll: true
+		});
 
 	Route.associate = (models) => {
 		Route.hasMany(models.UserRoute, {

@@ -1,6 +1,6 @@
 const Route = require('../models').Route;
 const dbHelpers = require('../db/_helpers');
-const controllerUtils = require('./_helpers'); 
+const controllerUtils = require('./_helpers');
 
 module.exports = {
     create(req, res) {

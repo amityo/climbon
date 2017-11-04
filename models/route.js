@@ -50,10 +50,8 @@ module.exports = (sequelize, DataTypes) => {
 
 	Route.associate = (models) => {
 		Route.hasMany(models.UserRoute, {
-			foreignKey: 'routeId',
 			as: 'userRoute'
 		});
-
 		Route.belongsTo(models.Location);
 	};
 

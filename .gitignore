@@ -61,4 +61,5 @@ typings/
 db/seeders/
 .vscode/
 .todos
-.eslintrc.json
+/dist
+*.log

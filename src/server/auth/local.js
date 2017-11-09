@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const init = require('./passport');
 const User = require('../models').User;
 
-options = {};
+const options = {};
 
 init();
 

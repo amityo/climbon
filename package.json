@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "build": "./node_modules/.bin/webpack -d",
-    "build:prod": "",
+    "build": "./node_modules/.bin/webpack -d && cp index.html dist/index.html && ./node_modules/.bin/webpack-dev-server --content-base dist/ --inline --hot --history-api-fallback",
+    "build:prod": "./node_modules/.bin/webpack -p",
     "test": "exit 1"
   },
   "dependencies": {
+    "axios": "^0.17.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.18.2",
     "connect-session-sequelize": "^5.0.0",
@@ -18,13 +19,17 @@
     "express": "~4.15.5",
     "express-session": "^1.15.6",
     "jade": "~1.11.0",
+    "material-ui": "^0.19.4",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "sequelize": "^4.18.0",
     "serve-favicon": "~2.4.5"
   },
@@ -38,8 +43,10 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "nodemon": "^1.12.1",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
   }
 }

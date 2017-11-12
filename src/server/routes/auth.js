@@ -23,7 +23,6 @@ router.post('/login', mid.loginRedirect, (req, res, next) => {
         if (!user) handleResponse(res, 404, 'not found')
         if (user) {
             req.logIn(user, (err) => {
-                //todo: is anon method the best soultion or create another func outside
                 if (err) { handleResponse(res, 500, 'error'); }
                 handleResponse(res, 200, 'success');
             });

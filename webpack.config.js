@@ -1,4 +1,3 @@
-// const webpack = reqiure('webpack');
 const path = require('path');
 
 const DIST_DIR = path.resolve(__dirname, './dist');
@@ -7,8 +6,9 @@ const SRC_DIR = path.resolve(__dirname, './src/client');
 const config = {
     entry: SRC_DIR + '/index.js',
     output: {
-        path: DIST_DIR,
+        path: DIST_DIR + '/app',
         filename: 'bundle.js',
+        publicPath: '/app/'
         
     },
     module: {

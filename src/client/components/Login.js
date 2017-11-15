@@ -1,13 +1,14 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Card, CardText, CardTitle } from 'material-ui/Card';
+import Auth from '../modules/Auth';
 
-export class Login extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,8 +20,8 @@ export class Login extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <div>
-                    <AppBar title="Login" onLeftIconButtonTouchTap={this.props.handleToggle} />
+                <Card>
+                    <CardTitle className="d-flex justify-content-center" title="Login" />
                     <div className="d-flex justify-content-center">
                         <TextField hintText="Enter your Username" floatingLabelText="Username"
                             onChange={(event, newValue) => this.setState({ username: newValue })} />
@@ -32,23 +33,22 @@ export class Login extends React.Component {
                         <br />
                     </div>
                     <br />
-                    <div className="d-flex justify-content-center">
-                        Not registered?    
+                    <CardText className="d-flex justify-content-center">
+                        Not registered?
                         <Link to="/register" style={registerStyle}>
                             Register Here
                         </Link>
-                    </div>
+                    </CardText>
                     <div className="d-flex justify-content-center">
                         <RaisedButton label="Submit" primary={true} style={style}
                             onClick={(event) => this.handleClick(event)} />
                     </div>
-                </div>
+                </Card>
             </MuiThemeProvider>
         );
     }
 
-    handleClick(event){
-        console.log("test");
+    handleClick(event) {
         const payload = {
             "username": this.state.username,
             "password": this.state.password
@@ -56,17 +56,18 @@ export class Login extends React.Component {
         axios.post(this.props.baseUrl + 'login', payload)
             .then(function (response) {
                 console.log(response);
-                if (response.data.code == 200) {
+                if (response.status == 200) {
+                    Auth.authenticateUser(response.data.token);
                     console.log("Login successfull");
                 }
-                else if (response.data.code == 404) {
+                else if (response.status == 404) {
                     console.log("Error login");
                     alert("Error login")
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log("err: " + error));
     }
-};
+}
 
 Login.propTypes = {
     baseUrl: PropTypes.string

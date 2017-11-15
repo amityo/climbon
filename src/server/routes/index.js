@@ -4,13 +4,14 @@ const routes = require('./routes');
 const userRoutes = require('./userroutes');
 
 const mid = require('../auth/middlewares');
-
 const API_PREFIX = '/api/v1'
 
 module.exports = (app) => {
-	app.use(`${API_PREFIX}/users/:user/routes`, mid.loginRequired, userRoutes);
+	app.use(API_PREFIX, mid.authenticate);
+	app.use(`${API_PREFIX}/users/:user/routes`, userRoutes);
 	app.use(`${API_PREFIX}/users`, mid.adminRequired, users);
-	app.use(`${API_PREFIX}/routes`, mid.loginRequired, routes);
+	app.use(`${API_PREFIX}/routes`, routes);
+	
 	app.use('/auth', auth);
 
 	// catch 404 and forward to error handler

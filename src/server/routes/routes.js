@@ -17,7 +17,7 @@ router.post('/', mid.adminRequired, routesController.create);
 /**
  * Get route by routeId.
  */
-router.get('/:routeId', routesController.retrieve);
+router.get('/:routeId(\\d+)/', routesController.retrieve);
 
 /**
  * Get all active routes.

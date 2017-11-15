@@ -1,17 +1,38 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import { Card, CardText, CardTitle } from 'material-ui/Card';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import Auth from '../modules/Auth';
 
+export default class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            routes: []
+        }
+    }
+    componentDidMount() {
+        axios.get(this.props.baseUrl + 'routes/active')
+            .then(routes => { this.setState({ routes: routes.data }) })
+        // .catch(err => console.log("err: " + err));
+    }
 
-export class Home extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <div>
-                    <AppBar onLeftIconButtonTouchTap={this.props.handleToggle} title="Home" />
-                    <div>Home!</div>
-                </div>
+                <Card className="my-container">
+                    <CardTitle title="Home" />
+                    <CardText>Welcome to Climbon. Your personal climbing tracking site.</CardText>
+                    {Auth.isUserAuthenticated() ?
+                        <div>Welcome!</div>
+                        : (<div>Please login</div>)}
+                </Card>
             </MuiThemeProvider>
         );
     }
+}
+
+Home.propTypes = {
+    baseUrl: PropTypes.string
 };

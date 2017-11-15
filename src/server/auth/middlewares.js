@@ -1,4 +1,17 @@
+const passport = require('./local');
+
 module.exports = {
+    authenticate(req, res, next) {
+         return passport.authenticate('jwt', {session: false}, (err, user, info) => {
+            //todo: normal error messages...
+            if(!user) return handleResponse(res, 401, 'Please log in');
+            req.logIn(user, (err) => {
+                if (err) { handleResponse(res, 500, 'error'); }
+                return next();
+            });
+        })(req,res,next);
+    },
+
     loginRequired(req, res, next) {
         if (!req.user) return handleResponse(res, 401, 'Please log in');
         return next();

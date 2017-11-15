@@ -58,7 +58,7 @@ typings/
 .env
 
 
-db/seeders/
+src/server/db/seeders/
 .vscode/
 .todos
 /dist

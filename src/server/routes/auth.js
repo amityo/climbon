@@ -4,6 +4,7 @@ const router = express.Router();
 const mid = require('../auth/middlewares');
 const passport = require('../auth/local');
 const usersController = require('../controllers').users;
+const jwt = require('jsonwebtoken');
 
 router.post('/register', mid.loginRedirect, (req, res, next) => {
     return usersController.create(req, res)
@@ -24,7 +25,7 @@ router.post('/login', mid.loginRedirect, (req, res, next) => {
         if (user) {
             req.logIn(user, (err) => {
                 if (err) { handleResponse(res, 500, 'error'); }
-                handleResponse(res, 200, 'success');
+                res.json({ token: jwt.sign({ username: user.username}, process.env.JWT_SECRET) });
             });
         }
     })(req, res, next);

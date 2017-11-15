@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 
-export class Register extends React.Component {
+export default class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,9 +19,8 @@ export class Register extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <div>
-                    <AppBar title="Register" onLeftIconButtonTouchTap={this.props.handleToggle} />
-
+                <Card>
+                    <CardTitle className="d-flex justify-content-center" title="Register"/>
                     <div className="d-flex justify-content-center">
                         <TextField hintText="Enter your Username" floatingLabelText="Username"
                             onChange={(event, newValue) => this.setState({ username: newValue })} />
@@ -33,17 +32,17 @@ export class Register extends React.Component {
                         <br />
                     </div>
                     <br />
-                    <div className="d-flex justify-content-center">
-                        Already registered?    
+                    <CardText className="d-flex justify-content-center">
+                        Already registered?
                         <Link to="/login" style={registerStyle}>
                             Login Here
                         </Link>
-                    </div>
+                    </CardText>
                     <div className="d-flex justify-content-center">
                         <RaisedButton label="Submit" primary={true} style={style}
                             onClick={(event) => this.handleClick(event)} />
                     </div>
-                </div>
+                </Card>
             </MuiThemeProvider>
         );
     }
@@ -59,15 +58,6 @@ export class Register extends React.Component {
                 console.log(response);
                 if (response.data.code == 200) {
                     console.log("Register successfull");
-                    // const loginScreen = [];
-                    // loginScreen.push(<Login parentContext={this} />);
-                    // const loginMessage = "Not Registered yet.Go to registration";
-                    // this.props.parentContext.setState({
-                    //     loginScreen: loginScreen,
-                    //     loginMessage: loginMessage,
-                    //     buttonLabel: "Register",
-                    //     isLogin: true
-                    // });
                 }
                 else if (response.data.code == 500) {
                     console.log("Error register");
@@ -76,7 +66,7 @@ export class Register extends React.Component {
             })
             .catch(error => console.log(error));
     }
-};
+}
 
 Register.propTypes = {
     baseUrl: PropTypes.string

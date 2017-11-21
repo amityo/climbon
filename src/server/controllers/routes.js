@@ -1,4 +1,6 @@
 const Route = require('../models').Route;
+const Location = require('../models').Location;
+const UserRoute = require('../models').UserRoute;
 const dbHelpers = require('../db/_helpers');
 const controllerUtils = require('./_helpers');
 
@@ -19,12 +21,21 @@ module.exports = {
 
     retrieve(req, res) {
         return Route
-            .findById(req.params.routeId)
+            .findById(req.params.routeId,
+            {
+                include: [
+                        { model: Location, as: 'location', attributes: ['name'] },
+                        { model: UserRoute, as: 'userRoute', where: { user_id:  req.user.id} , required: false}]
+            })
             .then(route => {
                 if (!route) controllerUtils.notFound(res);
                 else controllerUtils.success(res, route)
             })
-            .catch((err) => controllerUtils.error(res, err))
+            .catch((err) => {
+                console.log(err);
+                controllerUtils.error(res, err)
+            }
+            )
     },
 
     list(req, res) {

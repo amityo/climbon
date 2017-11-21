@@ -1,21 +1,24 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import Home from '../components/Home';
-import Login from '../components/Login';
-import Register from '../components/Register';
 import { BrowserRouter as Router, Route, Link, withRouter, Redirect } from 'react-router-dom';
+import axios from 'axios';
+
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { ListItem } from 'material-ui/List';
 import AppBar from 'material-ui/AppBar';
-import { AppNavDrawerWithRouter as AppNavDrawer } from '../components/AppNavDrawer';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-
 import FontIcon from 'material-ui/FontIcon';
-import axios from 'axios';
+
+
+import { AppNavDrawerWithRouter as AppNavDrawer } from '../components/AppNavDrawer';
 import Auth from '../modules/Auth';
+import Home from '../components/Home';
+import Login from '../components/Login';
+import Register from '../components/Register';
+import ClimbRoute from '../components/ClimbRoute';
 
 const baseUrl = "http://localhost:3000/";
 const apiBaseUrl = baseUrl + "api/v1/";
@@ -77,16 +80,9 @@ export default class App extends React.Component {
                             onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
                             onChangeList={this.handleToggle}
                         />
-                        <Route exact path="/" render={() =>
-                            <Home baseUrl={apiBaseUrl} />}
-                        />
-
-                        <Route path="/login" render={() =>
-                            <Login baseUrl={authBaseUrl} />}
-                        />
-                        <Route path="/register" render={() =>
-                            <Register baseUrl={authBaseUrl} />}
-                        />
+                        <Route exact path="/" render={() => <Home baseUrl={apiBaseUrl} />} />
+                        <Route path="/login" render={() => <Login baseUrl={authBaseUrl} />} />
+                        <Route path="/register" render={() => <Register baseUrl={authBaseUrl} />} />
                     </div>
                 </Router>
             </div>

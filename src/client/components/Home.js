@@ -1,33 +1,41 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Card, CardText, CardTitle } from 'material-ui/Card';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Card, CardText, CardTitle, CardActions } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+
 import Auth from '../modules/Auth';
+import ClimbRoute from '../components/ClimbRoute';
+
 
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            routes: []
+            routeId: 215
         }
-    }
-    componentDidMount() {
-        axios.get(this.props.baseUrl + 'routes/active')
-            .then(routes => { this.setState({ routes: routes.data }) })
-        // .catch(err => console.log("err: " + err));
     }
 
     render() {
         return (
             <MuiThemeProvider>
-                <Card className="my-container">
-                    <CardTitle title="Home" />
-                    <CardText>Welcome to Climbon. Your personal climbing tracking site.</CardText>
+                <div>
+                    <Card className="my-container">
+                        <CardTitle title="Home" />
+                        <CardText>Welcome to Climbon. Your personal climbing tracking site.</CardText>
+                        {Auth.isUserAuthenticated() ?
+                            <div>Welcome!</div>
+                            : (<div>Please login</div>)}
+                        <CardActions>
+                            <TextField type="number" defaultValue={215} onChange={(e, val) => this.setState({ routeId: parseInt(val) })} hintText="route id"></TextField>
+                        </CardActions>
+                    </Card>
+
+                    <br />
                     {Auth.isUserAuthenticated() ?
-                        <div>Welcome!</div>
-                        : (<div>Please login</div>)}
-                </Card>
+                        <ClimbRoute routeId={this.state.routeId} baseUrl={this.props.baseUrl} /> : null}
+                </div>
             </MuiThemeProvider>
         );
     }

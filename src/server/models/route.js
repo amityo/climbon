@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
 		Route.hasMany(models.UserRoute, {
 			as: 'userRoute'
 		});
-		Route.belongsTo(models.Location);
+		Route.belongsTo(models.Location, {as: 'location'});
 	};
 
 	return Route;
